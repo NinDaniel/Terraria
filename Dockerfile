@@ -10,7 +10,7 @@ RUN addgroup --gid 1000 terraria && \
     adduser --system --shell /bin/false --uid 1000 --ingroup terraria --home /vanilla terraria 
 
 #Copy all additional setup scripts
-COPY . .
+COPY start* /
 
 #Allow custom config and worlds
 VOLUME [ "/config" ]
@@ -18,7 +18,8 @@ VOLUME [ "/config" ]
 #Set some default environment variables
 EXPOSE 7777
 ENV UID=1000 GID=1000 \
-    TYPE=VANILLA VERSION LATEST
+    TYPE=VANILLA VERSION=LATEST \
+    WORLD=${HOSTNAME}
 
 #Let the magic begin!
 WORKDIR /vanilla
