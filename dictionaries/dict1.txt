@@ -21,14 +21,17 @@ awesome
 awful
 azure
 baby
+bamboozled
 bad
 bag of
 banned
 band of
 beaten
 beefy
+befuddled
 beloved
 betrayed
+bewitched
 bionic
 bitter
 bland
@@ -36,6 +39,7 @@ black
 baked
 based
 briny
+cantankerous
 crimson
 corrupted
 cancelled
