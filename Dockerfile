@@ -3,12 +3,20 @@ LABEL org.opencontainers.image.authors="ninxdaniel@gmail.com"
 
 #Install utilities
 RUN apt-get update && \
-    apt-get install -y curl nuget zip && \
+    apt-get install -y curl zip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+#Set some default environment variables
+ENV UID=1000 GID=1000 \
+    TYPE=VANILLA VERSION=LATEST \
+    PORT=7777
+
+EXPOSE ${PORT}
+
 #Download Terraria vanilla server
 RUN addgroup --gid 1000 terraria && \
+    TYPE=$(echo $TYPE | tr [:upper:] [:lower:]) && \
     adduser --system --shell /bin/false --uid 1000 --ingroup terraria --home /${TYPE} terraria 
 
 #Copy all additional setup scripts
@@ -18,12 +26,6 @@ RUN chmod +x /start*
 #Allow custom config and worlds
 VOLUME [ "/config" ]
 
-#Set some default environment variables
-EXPOSE 7777
-ENV UID=1000 GID=1000 \
-    TYPE=VANILLA VERSION=LATEST \
-    WORLD=${HOSTNAME} 
-
 #Let the magic begin!
 WORKDIR /${TYPE}
-ENTRYPOINT [ "./start.sh" ]
+ENTRYPOINT [ "./start" ]
