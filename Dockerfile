@@ -17,6 +17,7 @@ EXPOSE ${PORT}
 #Download Terraria vanilla server
 RUN addgroup --gid 1000 terraria && \
     TYPE=$(echo $TYPE | tr [:upper:] [:lower:]) && \
+    VERSION=$(echo $VERSION | tr [:upper:] [:lower:]) && \
     adduser --system --shell /bin/false --uid 1000 --ingroup terraria --home /${TYPE} terraria 
 
 #Copy all additional setup scripts
