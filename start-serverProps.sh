@@ -1,7 +1,6 @@
 #!/bin/sh
 
-: ${SERVER_CONFIG:=/data/serverconfig.txt}
-
+#Checks to see if
 
 #Functions for setting the server properties
 function setServerProp {
@@ -13,12 +12,12 @@ function setServerProp {
             TRUE|FALSE)
                 var=${var,,} ;;
         esac
-        if grep "${prop}" "$SERVER_PROPERTIES" > /dev/null; then
-            printf "Setting ${prop} to '${var}' in ${SERVER_PROPERTIES}"
-            sed -i "/^${prop}\s*=/ c ${prop}=${var//\\/\\\\}" "$SERVER_PROPERTIES"
+        if grep "${prop}" "$SERVER_CONFIG" > /dev/null; then
+            log "Setting ${prop} to '${var}' in ${SERVER_CONFIG}"
+            sed -i "/^${prop}\s*=/ c ${prop}=${var//\\/\\\\}" "$SERVER_CONFIG"
         else
-            printf "Adding ${prop} with '${var}' in ${SERVER_PROPERTIES}"
-            echo "${prop}=${var//\\/\\\\}" >> "$SERVER_PROPERTIES"
+            log "Adding ${prop} with '${var}' in ${SERVER_CONFIG}"
+            echo "${prop}=${var//\\/\\\\}" >> "$SERVER_CONFIG"
         fi
     fi
 }

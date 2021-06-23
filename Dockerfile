@@ -1,4 +1,6 @@
 FROM mono:6.12.0.107-slim AS base
+LABEL org.opencontainers.image.authors="ninxdaniel@gmail.com"
+
 #Install utilities
 RUN apt-get update && \
     apt-get install -y curl nuget zip && \
@@ -7,10 +9,11 @@ RUN apt-get update && \
 
 #Download Terraria vanilla server
 RUN addgroup --gid 1000 terraria && \
-    adduser --system --shell /bin/false --uid 1000 --ingroup terraria --home /vanilla terraria 
+    adduser --system --shell /bin/false --uid 1000 --ingroup terraria --home /${TYPE} terraria 
 
 #Copy all additional setup scripts
-COPY start* /
+COPY . /
+RUN chmod +x /start*
 
 #Allow custom config and worlds
 VOLUME [ "/config" ]
@@ -19,8 +22,8 @@ VOLUME [ "/config" ]
 EXPOSE 7777
 ENV UID=1000 GID=1000 \
     TYPE=VANILLA VERSION=LATEST \
-    WORLD=${HOSTNAME}
+    WORLD=${HOSTNAME} 
 
 #Let the magic begin!
-WORKDIR /vanilla
+WORKDIR /${TYPE}
 ENTRYPOINT [ "./start.sh" ]
