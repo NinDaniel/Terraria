@@ -127,3 +127,5 @@ if [ -n $DIFFICULTY ]; then
     esac
     setServerProp "difficulty" "$DIFFICULTY"
 fi
+
+exec start-finalSetup
