@@ -2,3 +2,8 @@
 
 . ${SCRIPTS:-/}start-utils
 
+#Make the blank banlist
+if [ ! -f /config/banlist.txt ]; then
+    touch /config/banlist.txt
+fi
+

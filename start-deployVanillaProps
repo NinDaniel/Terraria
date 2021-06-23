@@ -29,6 +29,7 @@ function setServerProp {
     fi
 }
 
+WORLD="$(shuf -n1 /dict1.txt | sed 's/ /-/g')-$(shuf -n1 /dict2.txt)"
 setServerProp "world" "$WORLD"
 setServerProp "autocreate" "$AUTOCREATE"
 setServerProp "seed" "$SEED"
