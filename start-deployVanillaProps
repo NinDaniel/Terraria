@@ -33,7 +33,6 @@ setServerProp "world" "$WORLD"
 setServerProp "autocreate" "$AUTOCREATE"
 setServerProp "seed" "$SEED"
 setServerProp "worldname" "$WORLDNAME"
-setServerProp "difficulty" "$DIFFICULTY"
 setServerProp "maxplayers" "$MAXPLAYERS"
 setServerProp "port" "$PORT"
 setServerProp "password" "$PASSWORD"
@@ -41,17 +40,6 @@ setServerProp "motd" "$MOTD"
 setServerProp "worldpath" "$WORLDPATH"
 setServerProp "banlist" "$BANLIST"
 setServerProp "secure" "$SECURE"
-setServerProp "language" "$LANGUAGE"
-#Available languages are 
-# en/US = English
-# de/DE = German
-# it/IT = Italian
-# fr/FR = French
-# es/ES = Spanish
-# ru/RU = Russian
-# zh/Hans = Chinese
-# pt/BR = Portuguese
-# pl/PL = Polish
 setServerProp "upnp" "$UPNP"
 setServerProp "npcstream" "$NPCSTREAM"
 setServerProp "priority" "$PRIORITY"
@@ -71,3 +59,71 @@ setServerProp "journeypermission_increaseplacementrange" "$JOURNEYPERMISSION_INC
 setServerProp "journeypermission_setdifficulty" "$JOURNEYPERMISSION_SETDIFFICULTY"
 setServerProp "journeypermission_biomespread_setfrozen" "$JOURNEYPERMISSION_BIOMESPREAD_SETFROZEN"
 setServerProp "journeypermission_setspawnrate" "$JOURNEYPERMISSION_SETSPAWNRATE"
+
+if [ -n $LANGUAGE ]; then
+    case $(echo $LANGUAGE | tr [:upper:] [:lower:]) in
+        en/us|en-us|en|us|1)
+            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=1; else
+            LANGUAGE=en-US
+            fi;;
+        de/DE|de-DE|de|2)
+            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=2; else
+            LANGUAGE=de-DE
+            fi;;
+        it/IT|it-IT|it|3)
+            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=3; else
+            LANGUAGE=it-IT
+            fi;;
+        fr/FR|fr-FR|fr|4)
+            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=4; else
+            LANGUAGE=fr-FR
+            fi;;
+        es/ES|es-ES|es|5)
+            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=5; else
+            LANGUAGE=es-ES
+            fi;;
+        ru/RU|ru-RU|ru)
+            LANGUAGE=ru-RU
+            ;;
+        zh/Hans|zh-Hans|zh|hans)
+            LANGUAGE=zh-Hans
+            ;;
+        pt/BR|pt-BR|pt|br)
+            LANGUAGE=pt-BR
+            ;;
+        pl/PL|pl-PL|pl)
+            LANGUAGE=pl-PL
+            ;;
+        *)
+            log "Unrecognized language! Using en/US"
+            LANGUAGE=en-US
+            ;;
+    esac
+    setServerProp "language" "$LANGUAGE"
+fi
+
+if [ -n $DIFFICULTY ]; then
+    case $(echo $DIFFICULTY | tr [:upper:] [:lower:]) in
+        0|classic)
+            DIFFICULTY=0
+            ;;
+        1|expert)
+            DIFFICULTY=1
+            ;;
+        2|master)
+            if [ $VERSION == 1.3* ]; then DIFFICULTY=1 
+            log "Invalid difficulty type for version! Using expert difficulty"; else
+            DIFFICULTY=2
+            fi;;
+        3|journey)
+            if [ $VERSION == 1.3* ]; then DIFFICULTY=0 
+            log "Invalid difficulty type for version! Using classic difficulty"; else
+            DIFFICULTY=3
+            fi;;
+        *)
+            log "Invalid difficulty. Using classic difficulty"
+            DIFFICULTY=0
+            ;;
+    esac
+    setServerProp "difficulty" "$DIFFICULTY"
+fi
