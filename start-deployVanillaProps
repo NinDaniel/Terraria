@@ -2,13 +2,6 @@
 
 . ${SCRIPTS:-/}start-utils
 
-#Checks to see if custom conf is to be used
-if [ -e /config/serverconfig.txt ]; then
-    SERVER_CONFIG=/config/serverconfig.txt
-else
-    SERVER_CONFIG=/serverconfig.txt
-fi
-
 #Functions for setting the server properties
 function setServerProp {
     local prop=$1
@@ -29,104 +22,111 @@ function setServerProp {
     fi
 }
 
-WORLD="$(shuf -n1 /dict1.txt | sed 's/ /-/g')-$(shuf -n1 /dict2.txt)"
-setServerProp "world" "$WORLD"
-setServerProp "autocreate" "$AUTOCREATE"
-setServerProp "seed" "$SEED"
-setServerProp "worldname" "$WORLDNAME"
-setServerProp "maxplayers" "$MAXPLAYERS"
-setServerProp "port" "$PORT"
-setServerProp "password" "$PASSWORD"
-setServerProp "motd" "$MOTD"
-setServerProp "worldpath" "$WORLDPATH"
-setServerProp "banlist" "$BANLIST"
-setServerProp "secure" "$SECURE"
-setServerProp "upnp" "$UPNP"
-setServerProp "npcstream" "$NPCSTREAM"
-setServerProp "priority" "$PRIORITY"
-#Journey Mode powers
-setServerProp "journeypermission_time_setfrozen" "$JOURNEYPERMISSION_TIME_SETFROZEN"
-setServerProp "journeypermission_time_setdawn" "$JOURNEYPERMISSION_TIME_SETDAWN"
-setServerProp "journeypermission_time_setnoon" "$JOURNEYPERMISSION_TIME_SETNOON"
-setServerProp "journeypermission_time_setdusk" "$JOURNEYPERMISSION_TIME_SETDUSK"
-setServerProp "journeypermission_time_setmidnight" "$JOURNEYPERMISSION_TIME_SETMIDNIGHT"
-setServerProp "journeypermission_godmode" "$JOURNEYPERMISSION_GODMODE"
-setServerProp "journeypermission_wind_setstrength" "$JOURNEYPERMISSION_WIND_SETSTRENGTH"
-setServerProp "journeypermission_rain_setstrength" "$JOURNEYPERMISSION_RAIN_SETSTRENGTH"
-setServerProp "journeypermission_time_setspeed" "$JOURNEYPERMISSION_TIME_SETSPEED"
-setServerProp "journeypermission_rain_setfrozen" "$JOURNEYPERMISSION_RAIN_SETFROZEN"
-setServerProp "journeypermission_wind_setfrozen" "$JOURNEYPERMISSION_WIND_SETFROZEN"
-setServerProp "journeypermission_increaseplacementrange" "$JOURNEYPERMISSION_INCREASEPLACEMENTRANGE"
-setServerProp "journeypermission_setdifficulty" "$JOURNEYPERMISSION_SETDIFFICULTY"
-setServerProp "journeypermission_biomespread_setfrozen" "$JOURNEYPERMISSION_BIOMESPREAD_SETFROZEN"
-setServerProp "journeypermission_setspawnrate" "$JOURNEYPERMISSION_SETSPAWNRATE"
+#Checks to see if custom conf is to be used
+if [ -e /config/serverconfig.txt ]; then
+    SERVER_CONFIG=/config/serverconfig.txt
+else
+    SERVER_CONFIG=/serverconfig.txt
 
-if [ -n $LANGUAGE ]; then
-    case $(echo $LANGUAGE | tr [:upper:] [:lower:]) in
-        en/us|en-us|en|us|1)
-            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=1; else
-            LANGUAGE=en-US
-            fi;;
-        de/DE|de-DE|de|2)
-            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=2; else
-            LANGUAGE=de-DE
-            fi;;
-        it/IT|it-IT|it|3)
-            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=3; else
-            LANGUAGE=it-IT
-            fi;;
-        fr/FR|fr-FR|fr|4)
-            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=4; else
-            LANGUAGE=fr-FR
-            fi;;
-        es/ES|es-ES|es|5)
-            if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=5; else
-            LANGUAGE=es-ES
-            fi;;
-        ru/RU|ru-RU|ru)
-            LANGUAGE=ru-RU
-            ;;
-        zh/Hans|zh-Hans|zh|hans)
-            LANGUAGE=zh-Hans
-            ;;
-        pt/BR|pt-BR|pt|br)
-            LANGUAGE=pt-BR
-            ;;
-        pl/PL|pl-PL|pl)
-            LANGUAGE=pl-PL
-            ;;
-        *)
-            log "Unrecognized language! Using en/US"
-            LANGUAGE=en-US
-            ;;
-    esac
-    setServerProp "language" "$LANGUAGE"
-fi
+    WORLD="$(shuf -n1 /dictionaries/dict1.txt | sed 's/ /-/g')-$(shuf -n1 /dictionaries/dict2.txt)"
+    setServerProp "world" "$WORLD"
+    setServerProp "autocreate" "$AUTOCREATE"
+    setServerProp "seed" "$SEED"
+    setServerProp "worldname" "$WORLDNAME"
+    setServerProp "maxplayers" "$MAXPLAYERS"
+    setServerProp "port" "$PORT"
+    setServerProp "password" "$PASSWORD"
+    setServerProp "motd" "$MOTD"
+    setServerProp "worldpath" "$WORLDPATH"
+    setServerProp "banlist" "$BANLIST"
+    setServerProp "secure" "$SECURE"
+    setServerProp "upnp" "$UPNP"
+    setServerProp "npcstream" "$NPCSTREAM"
+    setServerProp "priority" "$PRIORITY"
+    #Journey Mode powers
+    setServerProp "journeypermission_time_setfrozen" "$JOURNEYPERMISSION_TIME_SETFROZEN"
+    setServerProp "journeypermission_time_setdawn" "$JOURNEYPERMISSION_TIME_SETDAWN"
+    setServerProp "journeypermission_time_setnoon" "$JOURNEYPERMISSION_TIME_SETNOON"
+    setServerProp "journeypermission_time_setdusk" "$JOURNEYPERMISSION_TIME_SETDUSK"
+    setServerProp "journeypermission_time_setmidnight" "$JOURNEYPERMISSION_TIME_SETMIDNIGHT"
+    setServerProp "journeypermission_godmode" "$JOURNEYPERMISSION_GODMODE"
+    setServerProp "journeypermission_wind_setstrength" "$JOURNEYPERMISSION_WIND_SETSTRENGTH"
+    setServerProp "journeypermission_rain_setstrength" "$JOURNEYPERMISSION_RAIN_SETSTRENGTH"
+    setServerProp "journeypermission_time_setspeed" "$JOURNEYPERMISSION_TIME_SETSPEED"
+    setServerProp "journeypermission_rain_setfrozen" "$JOURNEYPERMISSION_RAIN_SETFROZEN"
+    setServerProp "journeypermission_wind_setfrozen" "$JOURNEYPERMISSION_WIND_SETFROZEN"
+    setServerProp "journeypermission_increaseplacementrange" "$JOURNEYPERMISSION_INCREASEPLACEMENTRANGE"
+    setServerProp "journeypermission_setdifficulty" "$JOURNEYPERMISSION_SETDIFFICULTY"
+    setServerProp "journeypermission_biomespread_setfrozen" "$JOURNEYPERMISSION_BIOMESPREAD_SETFROZEN"
+    setServerProp "journeypermission_setspawnrate" "$JOURNEYPERMISSION_SETSPAWNRATE"
 
-if [ -n $DIFFICULTY ]; then
-    case $(echo $DIFFICULTY | tr [:upper:] [:lower:]) in
-        0|classic)
-            DIFFICULTY=0
-            ;;
-        1|expert)
-            DIFFICULTY=1
-            ;;
-        2|master)
-            if [ $VERSION == 1.3* ]; then DIFFICULTY=1 
-            log "Invalid difficulty type for version! Using expert difficulty"; else
-            DIFFICULTY=2
-            fi;;
-        3|journey)
-            if [ $VERSION == 1.3* ]; then DIFFICULTY=0 
-            log "Invalid difficulty type for version! Using classic difficulty"; else
-            DIFFICULTY=3
-            fi;;
-        *)
-            log "Invalid difficulty. Using classic difficulty"
-            DIFFICULTY=0
-            ;;
-    esac
-    setServerProp "difficulty" "$DIFFICULTY"
+    if [ -n $LANGUAGE ]; then
+        case $(echo $LANGUAGE | tr [:upper:] [:lower:]) in
+            en/us|en-us|en|us|1)
+                if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=1; else
+                LANGUAGE=en-US
+                fi;;
+            de/DE|de-DE|de|2)
+                if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=2; else
+                LANGUAGE=de-DE
+                fi;;
+            it/IT|it-IT|it|3)
+                if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=3; else
+                LANGUAGE=it-IT
+                fi;;
+            fr/FR|fr-FR|fr|4)
+                if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=4; else
+                LANGUAGE=fr-FR
+                fi;;
+            es/ES|es-ES|es|5)
+                if [ $VERSION == 1.3.3.3 -o 1.3.4.4]; then LANGUAGE=5; else
+                LANGUAGE=es-ES
+                fi;;
+            ru/RU|ru-RU|ru)
+                LANGUAGE=ru-RU
+                ;;
+            zh/Hans|zh-Hans|zh|hans)
+                LANGUAGE=zh-Hans
+                ;;
+            pt/BR|pt-BR|pt|br)
+                LANGUAGE=pt-BR
+                ;;
+            pl/PL|pl-PL|pl)
+                LANGUAGE=pl-PL
+                ;;
+            *)
+                log "Unrecognized language! Using en/US"
+                LANGUAGE=en-US
+                ;;
+        esac
+        setServerProp "language" "$LANGUAGE"
+    fi
+
+    if [ -n $DIFFICULTY ]; then
+        case $(echo $DIFFICULTY | tr [:upper:] [:lower:]) in
+            0|classic)
+                DIFFICULTY=0
+                ;;
+            1|expert)
+                DIFFICULTY=1
+                ;;
+            2|master)
+                if [ $VERSION == 1.3* ]; then DIFFICULTY=1 
+                log "Invalid difficulty type for version! Using expert difficulty"; else
+                DIFFICULTY=2
+                fi;;
+            3|journey)
+                if [ $VERSION == 1.3* ]; then DIFFICULTY=0 
+                log "Invalid difficulty type for version! Using classic difficulty"; else
+                DIFFICULTY=3
+                fi;;
+            *)
+                log "Invalid difficulty. Using classic difficulty"
+                DIFFICULTY=0
+                ;;
+        esac
+        setServerProp "difficulty" "$DIFFICULTY"
+    fi
 fi
 
 exec start-finalSetup
