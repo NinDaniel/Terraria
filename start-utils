@@ -5,6 +5,6 @@ log () {
 versionIsGreaterThan () {
     # Split apart after .s and make the rest integers
     local IFS=.
-    local -i ver1=$VERSION ver2=$1
-    [[ $ver1 > $ver2 ]] && echo "True" || echo "False"
+    local ver1=$VERSION ver2=$1
+    [[ $ver1 > $ver2 ]] && return 0 || return 1
 }
