@@ -2,9 +2,9 @@ log () {
     echo "[init] $*"
 }
 
-isHigherVersionThan () {
-    local versionAgainst=$1
-    if [ $VERSION < $1 ]; then 
-        echo "Greater version"; else 
-        echo "Lesser version"; fi
+versionIsGreaterThan () {
+    # Split apart after .s and make the rest integers
+    local IFS=.
+    local -i ver1=$VERSION ver2=$1
+    [[ $ver1 > $ver2 ]] && echo "True" || echo "False"
 }
