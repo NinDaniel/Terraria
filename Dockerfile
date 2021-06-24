@@ -4,7 +4,7 @@ LABEL version=1.0
 
 # Install utilities
 RUN apt-get update && \
-    apt-get install -y curl zip && \
+    apt-get install -y curl zip screen && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 

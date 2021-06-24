@@ -9,7 +9,8 @@ fi
 
 rm -R /tmp/*
 
-CMD=./$TYPE/TerrariaServer -x64 -config /config/serverconfig.txt
+CMD="/$TYPE/TerrariaServer -x64 -config /config/serverconfig.txt"
 
-log "Starting server!"
+log "Starting server! CMD: $CMD $@"
+sleep 10
 exec $CMD $@
