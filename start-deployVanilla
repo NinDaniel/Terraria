@@ -60,7 +60,7 @@ case $VERSION in
         log "Downloading $TYPE Terraria running $VERSION"
         DOWNLOAD_URL=https://terraria.org/system/dedicated_servers/archives/000/000/045/original/terraria-server-1422.zip
         ;;
-    1.4.2.3)
+    1.4.2.3 | latest)
         log "Downloading $TYPE Terraria running $VERSION"
         DOWNLOAD_URL=https://terraria.org/system/dedicated_servers/archives/000/000/046/original/terraria-server-1423.zip
         ;;
