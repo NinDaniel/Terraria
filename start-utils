@@ -2,6 +2,10 @@ log () {
     echo "[init] $*"
 }
 
+debug () {
+    echo "[DEBUG] $*"
+}
+
 versionIsGreaterThan () {
     # Split apart after .s and make the rest integers
     local IFS=.
