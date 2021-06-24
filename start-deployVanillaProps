@@ -25,11 +25,17 @@ setServerProp () {
 
 # Checks to see if custom conf is to be used
 if [ -f /config/serverconfig.txt ]; then
-    :
+    log "Serverconfig.txt found. Bypassing config creation"
 else
     # Writes the default config
-    mv /tmp/serverconfig.txt "$SERVER_CONFIG"; log "Copying default config"
-    setServerProp "world" "$WORLD"
+    mv /tmp/serverconfig.txt "$SERVER_CONFIG"; log "No user config found. Creating default config."
+    if [ -z $WORLD ]; then
+        W1="$(shuf -n1 /tmp/dictionaries/dict1.txt)"
+        #echo $W1
+        sleep 2
+        WORLD=ChickenWing
+    fi
+    setServerProp "world" "/config/$WORLD.wld"
     setServerProp "autocreate" "$AUTOCREATE"
     setServerProp "seed" "$SEED"
     setServerProp "worldname" "$WORLDNAME"
@@ -123,5 +129,5 @@ else
     fi  
 fi
 
-cat $SERVER_CONFIG
-# exec ./start-finalSetup
+#cat $SERVER_CONFIG
+exec ./start-finalSetup
