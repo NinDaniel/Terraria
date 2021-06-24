@@ -1,11 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
-. ${SCRIPTS:-/}start-utils
+VERSION=$(echo $VERSION | tr [:upper:] [:lower:])
+TYPE=$(echo $TYPE | tr [:upper:] [:lower:])
+mv /tmp/start* /$TYPE
+cd /$TYPE
 
-#Sets the perms
+# Creates user and sets perms
 umask 0002
-chmod g+w /${TYPE}
+chmod g+w /$(echo $TYPE | tr [:upper:] [:lower:])
 chmod g+w /config
+
+. ./start-utils
 
 if [ $UID != 0 ]; then
     if [ $UID != $(id -u terraria) ]; then
@@ -26,14 +31,14 @@ if [ $(stat -c "%u" /config) != $UID ]; then
     chown -R terraria:terraria /config
 fi
 
-case $TYPE in
+case $(echo $TYPE | tr [:upper:] [:lower:]) in
     tshock)
-        exec start-deployTShock
+        exec ./start-deployTShock
         ;;
     modded)
-        exec start-deployModded
+        exec ./start-deployModded
         ;;
     vanilla | *)
-        exec start-deployVanilla
+        exec ./start-deployVanilla
         ;;
 esac

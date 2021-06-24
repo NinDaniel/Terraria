@@ -1,9 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
-. ${SCRIPTS:-/}start-utils
+. ./start-utils
 
-#Make the blank banlist
+# Make the blank banlist
 if [ ! -f /config/banlist.txt ]; then
     touch /config/banlist.txt
 fi
 
+rm -R /tmp/*
+
+CMD=./$TYPE/TerrariaServer -x64 -config /config/serverconfig.txt
+
+log "Starting server!"
+exec $CMD $@

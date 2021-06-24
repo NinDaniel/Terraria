@@ -10,11 +10,10 @@ motd=Powered by Docker!
 worldpath=/config
 banlist=/config/banlist.txt
 secure=0
-language=en
+language=en-US
 upnp=0
 npcstream=10
 priority=1
-
 journeypermission_time_setfrozen=2
 journeypermission_time_setdawn=2
 journeypermission_time_setnoon=2

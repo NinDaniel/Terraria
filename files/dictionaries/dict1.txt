@@ -23,9 +23,9 @@ azure
 baby
 bamboozled
 bad
-bag of
+bag-of
 banned
-band of
+band-of
 beaten
 beefy
 befuddled
@@ -48,7 +48,7 @@ cheap
 cinder
 classic
 clock
-collector of
+collector-of
 common
 convoluted
 contained
@@ -59,7 +59,7 @@ dank
 dan's
 damp
 dapper
-dealer of
+dealer-of
 deep
 demoted
 deranged
@@ -79,14 +79,14 @@ english
 engineered
 enormous
 enraged
-essence of
+essence-of
 evil
 expensive
 fabled
 fairy
 fatal
 fighting
-fiesta for
+fiesta-for
 flammable
 fresh
 funded
@@ -100,7 +100,7 @@ glorious
 gluttonous
 godly
 gray
-group of
+group-of
 gullible
 hacked
 harry
@@ -115,7 +115,7 @@ hydro
 hysterical
 ice
 ideal
-igloo of
+igloo-of
 illegal
 ignored
 imaginary
@@ -186,7 +186,7 @@ outlaw
 overbearing
 overkill
 painful
-parade for
+parade-for
 pavilion
 pawned
 perished
@@ -225,7 +225,7 @@ remote
 remove
 rented
 repressed
-research into
+research-into
 retail
 rival
 robust
@@ -233,7 +233,7 @@ rosy
 rough
 rowdy
 ruined
-sack of
+sack-of
 sad
 salty
 sanitized
@@ -286,7 +286,7 @@ timed
 tinfoil
 tiring
 torn
-torture by
+torture-by
 trained
 treasured
 trapped
@@ -304,7 +304,7 @@ underpaid
 underrated
 unfunny
 united
-union for
+union-for
 unpacked
 unsung
 unworthy

@@ -1,6 +1,10 @@
-#!/bin/sh
-
-#Sets the functions to be used by all files
-function log() {
+log () {
     echo "[init] $*"
+}
+
+isHigherVersionThan () {
+    local versionAgainst=$1
+    if [ $VERSION < $1 ]; then 
+        echo "Greater version"; else 
+        echo "Lesser version"; fi
 }
