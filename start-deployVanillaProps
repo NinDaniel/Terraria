@@ -9,8 +9,8 @@ setServerProp () {
     local var=$2
     if [ -n "$var" ]; then
         if grep "${prop}" "$SERVER_CONFIG" > /dev/null ; then
-            log "Setting ${prop} to '${var}' in ${SERVER_CONFIG}"
-            sed -i "s/${prop}=.*/${prop}=${var}/g" "$SERVER_CONFIG"
+            log "Setting ${prop} to '${var}'"
+            sed -i "s/^${prop}=.*/${prop}=${var}/g" "$SERVER_CONFIG"
             sleep 0.5
         else
             log "Adding ${prop} with '${var}' in ${SERVER_CONFIG}"
@@ -18,10 +18,11 @@ setServerProp () {
             sleep 0.5
         fi
     else
-        log "Leaving ${prop} as" $(sed -n "s/${prop}=/ /p" $SERVER_CONFIG)
+        log "Leaving ${prop} as" $(sed -n "s/^${prop}=/ /p" $SERVER_CONFIG)
         sleep 0.5
     fi
 }
+
 # Checks to see if custom conf is to be used
 if [ -f /config/serverconfig.txt ]; then
     :
@@ -37,45 +38,63 @@ else
             en/us|en-us|en|us|1)
                 if versionIsGreaterThan "1.3.4.4" ; then LANGUAGE=1; else
                 LANGUAGE=en-US
-                fi;;
+                fi ;;
             de/DE|de-DE|de|2)
                 if versionIsGreaterThan "1.3.4.4" ; then LANGUAGE=2; else
                 LANGUAGE=de-DE
-                fi;;
+                fi ;;
             it/IT|it-IT|it|3)
                 if versionIsGreaterThan "1.3.4.4" ; then LANGUAGE=3; else
                 LANGUAGE=it-IT
-                fi;;
+                fi ;;
             fr/FR|fr-FR|fr|4)
                 if versionIsGreaterThan "1.3.4.4" ; then LANGUAGE=4; else
                 LANGUAGE=fr-FR
-                fi;;
+                fi ;;
             es/ES|es-ES|es|5)
                 if versionIsGreaterThan "1.3.4.4" ; then LANGUAGE=5; else
                 LANGUAGE=es-ES
-                fi;;
+                fi ;;
             ru/RU|ru-RU|ru)
-                LANGUAGE=ru-RU
-                ;;
+                LANGUAGE=ru-RU ;;
             zh/Hans|zh-Hans|zh|hans)
-                LANGUAGE=zh-Hans
-                ;;
+                LANGUAGE=zh-Hans ;;
             pt/BR|pt-BR|pt|br)
-                LANGUAGE=pt-BR
-                ;;
+                LANGUAGE=pt-BR ;;
             pl/PL|pl-PL|pl)
-                LANGUAGE=pl-PL
-                ;;
+                LANGUAGE=pl-PL ;;
             *)
-                log "Unrecognized language! Using en/US"
-                LANGUAGE=en-US
-                ;;
+                debug "Unrecognized language! Using en/US"
+                LANGUAGE=en-US;;
         esac
-        setServerProp "language" "$LANGUAGE"; else setServerProp "language" "$LANGUAGE"
     fi
-    
+    setServerProp "language" "$LANGUAGE"
+    if [ ! -z $DIFFICULTY ]; then
+        case $(echo $DIFFICULTY | tr [:upper:] [:lower:]) in
+            0|classic)
+                DIFFICULTY=0 ;;
+            1|expert)
+                DIFFICULTY=1 ;;
+            2|master)
+                if versionIsGreaterThan "1.3.5.3" ; then
+                    DIFFICULTY=2; else 
+                    debug "Difficulty not found in $VERSION. Using expert instead."
+                    DIFFICULTY=1
+                fi ;;
+            3|journey)
+                if versionIsGreaterThan "1.3.5.3" ; then
+                    DIFFICULTY=3; else
+                    debug "Difficulty not found in $VERSION. Using classic instead."
+                    DIFFICULTY=0
+                fi ;;
+            *)
+                debug "$DIFFICULTY is out of bounds. Using classic instead."
+                DIFFICULTY=0 ;;
+        esac
+    fi
+    setServerProp "difficulty" "$DIFFICULTY"
     setServerProp "maxplayers" "$MAXPLAYERS"
-    setServerProp "port" "${PORT}"
+    setServerProp "port" "$PORT"
     setServerProp "password" "$PASSWORD"
     setServerProp "motd" "$MOTD"
     setServerProp "worldpath" "$WORLDPATH"
@@ -104,4 +123,5 @@ else
     fi  
 fi
 
+cat $SERVER_CONFIG
 # exec ./start-finalSetup
