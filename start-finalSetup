@@ -9,7 +9,7 @@ fi
 
 rm -R /tmp/*
 
-CMD="/$TYPE/TerrariaServer -x64 -config /config/serverconfig.txt"
+CMD="tmux new-session -s Terraria '/$TYPE/TerrariaServer -x64 -config /config/serverconfig.txt'"
 
 log "Starting server! CMD: $CMD $@"
 sleep 10
