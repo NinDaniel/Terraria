@@ -49,11 +49,11 @@ case $VERSION in
     1.4.2.3 | latest)
         VERSION=1.4.2.3
         log "Downloading $TYPE Terraria running $VERSION"
-        DOWNLOAD_URL=https://terraria.org/system/dedicated_servers/archives/000/000/046/original/terraria-server-1423.zip ;;        
+        DOWNLOAD_URL=https://terraria.org/api/download/pc-dedicated-server/terraria-server-1423.zip ;;        
     *)
         VERSION=1.4.2.3
         debug "Could not find a suitable version! Downloading $TYPE Terraria running $VERSION instead"
-        DOWNLOAD_URL=https://terraria.org/system/dedicated_servers/archives/000/000/046/original/terraria-server-1423.zip ;;        
+        DOWNLOAD_URL=https://terraria.org/api/download/pc-dedicated-server/terraria-server-1423.zip ;;        
 esac
 
 # Install time
